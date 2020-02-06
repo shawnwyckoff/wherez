@@ -3,10 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/shawnwyckoff/wherez"
 	"log"
 	"strconv"
-
-	"github.com/nictuku/wherez"
 )
 
 // port for the wherez protocol (UDP+TCP).

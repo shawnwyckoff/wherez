@@ -58,22 +58,25 @@ func findAuthenticatedPeers(port, appPort, minPeers int, passphrase []byte, c ch
 		log.Println("Could not calculate infohash for the provided passphrase", err)
 		return
 	}
-	announce := false
+	//announce := false
 	if appPort > 0 {
-		announce = true
+		//announce = true
 		if _, err = listenAuth(port, appPort, passphrase); err != nil {
 			log.Println("Could not open listener:", err)
 			return
 		}
 	}
 	// Connect to the DHT network.
-	d, err := dht.NewDHTNode(port, minPeers, announce)
+	config := *dht.DefaultConfig
+	config.Port = port
+	config.NumTargetPeers = minPeers
+	d, err := dht.New(&config)
 	if err != nil {
 		log.Println("Could not create the DHT node:", err)
 		return
 	}
 	d.AddNode("213.239.195.138:40000")
-	go d.DoDHT()
+	d.Start()
 	// Sends authenticated peers to channel c.
 	go obtainPeers(d, passphrase, c)
 
