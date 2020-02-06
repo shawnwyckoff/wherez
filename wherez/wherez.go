@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/shawnwyckoff/wherez"
+	"github.com/nictuku/wherez"
 	"log"
 	"strconv"
 )
